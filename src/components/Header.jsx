@@ -8,7 +8,7 @@ const Header= function(){
                 <button className = "button button_1">rerokai</button>
                 <button className = "button button_2">my prj</button>
             </div>
-                <button className= "right_buttons"> aleosda </button>
+                <button className= "right_buttons"> nght </button>
         </header> 
 
 

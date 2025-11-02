@@ -1,0 +1,15 @@
+.custom-edge {
+  stroke: #20310F; 
+  transition: stroke 0.2s ease;
+  z-index: 22;
+}
+
+.custom-edge:hover {
+  stroke: #20310F; /* чуть темнее при наведении */
+  stroke-width: 3px;
+}
+
+.custom-edge-interaction {
+  cursor: pointer;
+}
+

@@ -1,0 +1,55 @@
+.custom-node {
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 21;
+  border: 1px solid #20310F;
+  border-radius: 10px;
+  padding: 6px 0px;
+  min-width: 120px;
+  text-align: center;
+  font-size: 60%;
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+  font-weight: 400;
+  box-shadow:0px 4px 15px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(2px);
+}
+
+.custom-node__divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.25); /* 👈 это и есть линия */
+  
+}
+
+.custom-node__header{
+  padding-bottom: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.custom-node:hover {
+  transform: scale(1.05);
+  z-index: 21;
+  /* box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); */
+}
+
+.custom-node__body {
+  color:aliceblue;
+  padding-top: 8px;
+  z-index: 21;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 8px;
+
+}
+
+.react-flow__handle {
+  background: #20310F;
+  z-index: 21;
+  border: 0.3px solid #a7a7a7; 
+  width: 1px;                 
+  height: 1px;
+  opacity: 1;                 
+  transition: all 0.2s ease;  
+}

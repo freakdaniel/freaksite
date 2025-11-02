@@ -7,8 +7,7 @@ const About= function(){
         <div className="aboutblock">
             <p>About(me)</p>
         </div>
-
-
+        
     )
 }
 

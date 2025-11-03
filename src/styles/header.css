@@ -33,7 +33,7 @@
     padding-right: 20%;
     padding-top: 10px;
     padding-bottom: 10px;
-    border: 1px solid #152B00;
+    border: 1px solid #20310F;
     border-radius: 15px;
     background: none;
     
@@ -44,22 +44,36 @@
     display: flex;
     font-size: 110%;
     font-family: "Montserrat", sans-serif;
-    padding-left: 20px;
+    padding-left: 15px;
     padding-top: 10px;
-    padding-right: 20px;
+    padding-right: 15px;
     padding-bottom: 10px;
     border: 1px solid #152B00;
+    
     border-radius: 15px;
     background: none;
     color: #152B00;
+    z-index: 120;
+    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+    &:hover { box-shadow: 0 0 70px 20px rgba(88,101,76, 0.3) inset;  }
 }
  
 .button.button.button_1{
     z-index: 120;
-    background-color: #58654C;
-    color: white;
-    border: none;
+    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+    &:hover { box-shadow: 0 0 70px 20px rgba(88,101,76, 0.5) inset; color: white;}
+    
 }
 
+.button.button.button_2{
+    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+    &:hover { box-shadow: 0 0 70px 20px rgba(88,101,76, 0.5) inset; color: white; }
+
+}
+
+.right_buttons:hover .night path {
+  transition: 400ms;
+  stroke: #ffffff;
+}
 
 

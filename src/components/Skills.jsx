@@ -7,7 +7,7 @@ import CustomEdge from "./CustomEdge";
  
 const initialNodes = [
   { id: 'top', position: { x: 160, y: -160 }, data: { title: 'study', content: `now i'm studying\ncomputer science\nin Russia.` }, type:'custom' },
-  { id: 'center', position: { x: 350, y: -20 }, data: { title: 'now know', content: `ansible, docker\nk8s, terraform\npostgres, aws` }, type:'custom' },
+  { id: 'center', position: { x: 350, y: -20 }, data: { title: 'now know', content: `ansible, docker\nk8s, terraform,\npostgres, aws` }, type:'custom' },
   { id: 'right', position: { x: 600, y: -80 }, data: { title: 'love', content: `linux, devops,\nspend money` }, type:'custom' },
   { id: 'left', position: { x: 100, y: 70 }, data: {  title: 'contact', content: `my tg: @rerokai\ngithub: rerokai` }, type:'custom' },
 ];

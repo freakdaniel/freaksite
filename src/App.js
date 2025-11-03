@@ -1,31 +1,25 @@
-import React, {useState} from 'react';
-import Header from './components/Header';
-import Skills from './components/Skills';
-import About from './components/About';
-import Footer from './components/Footer';
-import BackBlur from './components/BackBlur';
+import React from 'react';
 import { ReactFlow } from '@xyflow/react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { motion } from 'framer-motion';
+import PageWrapper from './components/PageWrapper';
 import '@xyflow/react/dist/style.css';
-import '/home/user/pw/personal-web/src/styles/app.css'
+import Rerokai from "./pages/Rerokai"
+import Project from "./pages/Project"
+
 
 
 function App() {
   
   return (
-    <div className="App">
-      
-   <BackBlur/> 
-   <Header/>
-   <About/>  
-   <Skills/>
-   <Footer/>
     
-  
+    <Router>
+      <Routes>
+        <Route path= "/"element={<PageWrapper><Rerokai/></PageWrapper>}/>
+        <Route path= "/project"element={<PageWrapper><Project/></PageWrapper>}/>
+      </Routes>
+    </Router>
 
-
-    
-    </div>
-    
   );
 }
 

@@ -10,25 +10,25 @@ export default function Home() {
     const socialConfigs = [
         {
             name: 'Telegram',
-            url: 'https://t.me/your_username',
+            url: 'https://t.me/freakdaniel',
             icon: SiTelegram,
             color: 'rgba(42, 171, 238, 0.3)'
         },
         {
             name: 'Instagram',
-            url: 'https://instagram.com/your_username',
+            url: 'https://instagram.com/_freakdaniel',
             icon: SiInstagram,
             color: 'linear-gradient(to top right, rgba(64, 93, 230, 0.3), rgba(88, 81, 219, 0.3), rgba(131, 58, 180, 0.3))'
         },
         {
             name: 'GitHub',
-            url: 'https://github.com/your_username',
+            url: 'https://github.com/freakdaniel',
             icon: SiGithub,
             color: 'rgba(245, 100, 40, 0.3)'
         },
         {
             name: 'Spotify',
-            url: 'https://open.spotify.com/user/your_username',
+            url: 'https://open.spotify.com/user/317grjblvlenxyyqv6vdxyg47lvq?si=d9a9690a74a64cd8',
             icon: SiSpotify,
             color: 'rgba(29, 185, 84, 0.3)'
         }

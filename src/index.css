@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --font-moc: "Mountains of Christmas",
+    sans-serif;
+}
+
+body {
+    background: #000;
+}

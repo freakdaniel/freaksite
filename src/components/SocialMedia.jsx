@@ -41,36 +41,36 @@ const SocialMediaButton = ({ config }) => {
 
   return (
     <AnimatedScale>
-            <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ width: '48px', height: '48px' }}
-    >
-      <animated.div
-        className="absolute inset-0 rounded-[20px] z-0" 
-        style={{
-          ...overlayAnimation,
-          background: color,
-        }}
-      />
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block relative"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        style={{ width: '48px', height: '48px' }}
+      >
+        <animated.div
+          className="absolute inset-0 rounded-[20px] z-30"
+          style={{
+            ...overlayAnimation,
+            background: color,
+          }}
+        />
 
-      <div className="relative z-10 w-full h-full flex items-center justify-center">
-        <GlassSurface
-          className="w-full h-full flex items-center justify-center overflow-visible"
-          blur={10}
-          saturation={1.5}
-          distortionScale={-80}
-          displace={0.5}
-          borderRadius={20}
-        >
+        <div className="relative z-20 w-full h-full flex items-center justify-center">
+          <GlassSurface
+            className="w-full h-full flex items-center justify-center overflow-visible"
+            blur={10}
+            saturation={1.5}
+            distortionScale={-80}
+            displace={0.5}
+            borderRadius={20}
+          >
             <IconComponent size={24} className="text-white absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20" style={{ opacity: 0.7 }} />
-        </GlassSurface>
-      </div>
-    </a>
+          </GlassSurface>
+        </div>
+      </a>
     </AnimatedScale>
   );
 };

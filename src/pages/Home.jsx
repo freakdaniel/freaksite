@@ -12,25 +12,25 @@ export default function Home() {
             name: 'Telegram',
             url: 'https://t.me/freakdaniel',
             icon: SiTelegram,
-            color: 'rgba(42, 171, 238, 0.3)'
+            color: 'rgba(42, 171, 238, 0.2)'
         },
         {
             name: 'Instagram',
             url: 'https://instagram.com/_freakdaniel',
             icon: SiInstagram,
-            color: 'linear-gradient(to top right, rgba(64, 93, 230, 0.3), rgba(88, 81, 219, 0.3), rgba(131, 58, 180, 0.3))'
+            color: 'linear-gradient(to top right, rgba(64, 93, 230, 0.2), rgba(88, 81, 219, 0.2), rgba(131, 58, 180, 0.2))'
         },
         {
             name: 'GitHub',
             url: 'https://github.com/freakdaniel',
             icon: SiGithub,
-            color: 'rgba(245, 100, 40, 0.3)'
+            color: 'rgba(245, 100, 40, 0.2)'
         },
         {
             name: 'Spotify',
             url: 'https://open.spotify.com/user/317grjblvlenxyyqv6vdxyg47lvq?si=d9a9690a74a64cd8',
             icon: SiSpotify,
-            color: 'rgba(29, 185, 84, 0.3)'
+            color: 'rgba(29, 185, 84, 0.2)'
         }
     ];
 

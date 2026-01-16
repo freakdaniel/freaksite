@@ -7,25 +7,19 @@ const ProfileCard = () => {
 
             <div className="relative z-10">
 
-                <h2 className="text-3xl font-bold text-white mb-1 font-sync max-sm:text-xl">Daniel Freak</h2>
-                <p className="text-white/60 text-base mb-4 max-sm:text-sm">Full-Stack Developer & UI Lover</p>
+                <h2 className="text-3xl font-bold text-white mb-1 font-sync max-sm:text-xl">DANIEL FREAK</h2>
+                <p className="text-white/60 text-base mb-4 max-sm:text-sm font-sans">Full-Stack Developer & UI Lover</p>
 
-                <div className="flex flex-wrap gap-4 text-sm text-white/40 mb-6 justify-center">
+                <div className="flex flex-wrap gap-4 text-sm text-white/40 mb-6 justify-start font-sans">
                     <div className="flex items-center gap-1">
                         <MapPin size={14} />
                         <span >Earth, C-137</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                        <LinkIcon size={14} />
-                        <a href="https://freaksite.link" className="hover:text-white transition-colors">freaksite.link</a>
-                    </div>
                 </div>
             </div>
-
-            <div className="relative z-10 pt-6 border-t border-white/10">
-                 <p className="text-white/80 text-sm leading-relaxed italic">
-                    "Software is like sex - it's better when it's free"
-                 </p>
+            <div className="flex items-center gap-1">
+                <LinkIcon size={14} />
+                <a href="https://freaksite.link" className="hover:text-white transition-colors">freaksite.link</a>
             </div>
         </div>
     );

@@ -6,6 +6,9 @@ import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
 
+// Global set to track animated texts across component remounts
+const animatedTexts = new Set();
+
 const SplitText = ({
   text,
   className = '',
@@ -23,8 +26,8 @@ const SplitText = ({
   onLetterAnimationComplete
 }) => {
   const ref = useRef(null);
-  const animationCompletedRef = useRef(false); // Флаг: проигралась ли анимация
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const uniqueId = useRef(`split-${Math.random().toString(36).substr(2, 9)}`);
 
   useEffect(() => {
     if (document.fonts.status === 'loaded') {
@@ -41,33 +44,22 @@ const SplitText = ({
       if (!ref.current || !text || !fontsLoaded) return;
       const el = ref.current;
 
+      // Unique key for this text instance to prevent re-animation
+      // We use the text content string as part of the key to identify it
+      const animationKey = `${uniqueId.current}-${text.substring(0, 10)}`;
+
       let scrollerTarget = container || document.getElementById('snap-main-container') || null;
       if (typeof scrollerTarget === 'string') {
           scrollerTarget = document.querySelector(scrollerTarget);
       }
 
-      // Очистка старых инстансов, если они остались
+      // Clean up old instance
       if (el._rbsplitInstance) {
         try {
           el._rbsplitInstance.revert();
         } catch (_) { /* ignore */ }
         el._rbsplitInstance = null;
       }
-
-      const startPct = (1 - threshold) * 100;
-      const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
-      const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
-      const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
-      const sign = marginValue === 0 ? '' : marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
-      const start = `top ${startPct}%${sign}`;
-
-      let targets;
-      const assignTargets = self => {
-        if (splitType.includes('chars') && self.chars.length) targets = self.chars;
-        if (!targets && splitType.includes('words') && self.words.length) targets = self.words;
-        if (!targets && splitType.includes('lines') && self.lines.length) targets = self.lines;
-        if (!targets) targets = self.chars || self.words || self.lines;
-      };
 
       const splitInstance = new GSAPSplitText(el, {
         type: splitType,
@@ -76,71 +68,64 @@ const SplitText = ({
         linesClass: 'split-line',
         wordsClass: 'split-word',
         charsClass: 'split-char',
-        reduceWhiteSpace: false,
-        onSplit: self => {
-          assignTargets(self);
-          
-          // 🔥 ИСПРАВЛЕНИЕ ЗДЕСЬ 🔥
-          // Если анимация уже была завершена ранее, просто ставим текст в финальную позицию
-          if (animationCompletedRef.current) {
-              gsap.set(targets, { ...to });
-              return; // Выходим, не создавая ScrollTrigger
-          }
-
-          // Иначе запускаем анимацию как обычно
-          return gsap.fromTo(
-            targets,
-            { ...from },
-            {
-              ...to,
-              duration,
-              ease,
-              stagger: delay / 1000,
-              scrollTrigger: {
-                trigger: el,
-                scroller: scrollerTarget,
-                start,
-                once: true,
-                fastScrollEnd: true,
-                anticipatePin: 0.4
-              },
-              onComplete: () => {
-                animationCompletedRef.current = true; // Запоминаем, что анимация прошла
-                onLetterAnimationComplete?.();
-              },
-              willChange: 'transform, opacity',
-              force3D: true
-            }
-          );
-        }
+        reduceWhiteSpace: false
       });
+
+      let targets;
+      if (splitType.includes('chars') && splitInstance.chars.length) targets = splitInstance.chars;
+      if (!targets && splitType.includes('words') && splitInstance.words.length) targets = splitInstance.words;
+      if (!targets && splitType.includes('lines') && splitInstance.lines.length) targets = splitInstance.lines;
+      if (!targets) targets = splitInstance.chars || splitInstance.words || splitInstance.lines;
+
+      // Check global state
+      if (animatedTexts.has(animationKey)) {
+          gsap.set(targets, { ...to });
+      } else {
+          // Setup animation
+          const startPct = (1 - threshold) * 100;
+          
+          gsap.set(targets, { ...from });
+          
+          ScrollTrigger.create({
+              trigger: el,
+              scroller: scrollerTarget,
+              start: `top ${startPct}%`,
+              once: true,
+              onEnter: () => {
+                   gsap.to(targets, {
+                      ...to,
+                      duration,
+                      ease,
+                      stagger: delay / 1000,
+                      onComplete: () => {
+                          animatedTexts.add(animationKey);
+                          onLetterAnimationComplete?.();
+                      }
+                   });
+              }
+          });
+      }
+
       el._rbsplitInstance = splitInstance;
 
       return () => {
+        // Kill ScrollTriggers specific to this element
         ScrollTrigger.getAll().forEach(st => {
-          if (st.trigger === el) st.kill();
+           if (st.trigger === el) st.kill();
         });
+        
+        // We do NOT revert the split text instance itself on unmount/cleanup efficiently
+        // because that causes a flash of unstyled text if it remounts quickly.
+        // However, GSAP Context handles basic cleanup.
+        // If we revert, the text goes back to block.
+        // Let's rely on the next mount re-splitting it.
         try {
-          splitInstance.revert();
-        } catch (_) { /* ignore */ }
-        el._rbsplitInstance = null;
+          if (el._rbsplitInstance) el._rbsplitInstance.revert();
+        } catch (_) { }
       };
     },
     {
-      dependencies: [
-        text,
-        delay,
-        duration,
-        ease,
-        splitType,
-        JSON.stringify(from),
-        JSON.stringify(to),
-        threshold,
-        rootMargin,
-        fontsLoaded,
-        onLetterAnimationComplete,
-        container
-      ],
+      dependencies: [text, fontsLoaded, container],
       scope: ref
     }
   );
@@ -153,10 +138,6 @@ const SplitText = ({
     };
     const classes = `split-parent overflow-hidden inline-block whitespace-normal ${className}`;
     
-    // Простой маппинг тегов
-    const Tag = tag; 
-    // Если Tag передается как строка ('h1', 'p'), React поймет это автоматически
-    // Если у вас возникают ошибки с динамическим тегом, можно вернуть switch-case
     switch (tag) {
         case 'h1': return <h1 ref={ref} style={style} className={classes}>{text}</h1>;
         case 'h2': return <h2 ref={ref} style={style} className={classes}>{text}</h2>;

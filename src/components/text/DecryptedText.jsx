@@ -1,13 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-/**
- * DecryptedText
- * 
- * Animates text from random characters to the final text.
- * used for "Matrix" or "Cyberpunk" appearing effects.
- */
-
 const DecryptedText = ({
   text,
   speed = 50,
@@ -29,7 +22,6 @@ const DecryptedText = ({
   const isInView = useInView(containerRef, { once: true, margin: "-10% 0px -10% 0px" });
   
   useEffect(() => {
-    // Only animate if in view or hovering
     if (!isInView && !isHovering) return;
 
     let interval;
@@ -41,12 +33,7 @@ const DecryptedText = ({
             setDisplayText((prevText) => {
                 let nextText = text.split('').map((char, index) => {
                     if (text[index] === ' ') return ' ';
-                    
-                    // Glitch logic: 
-                    // 1. Reveal characters sequentially based on iteration
-                    // 2. Random characters for the rest
-                    // 3. Occasional "glitch" where already revealed char switches back for a frame
-                    
+
                     if (index < currentIteration) {
                         return text[index];
                     }
@@ -59,7 +46,6 @@ const DecryptedText = ({
                     setIsScrambling(false);
                 }
                 
-                // Non-linear progress for more organic feeling
                 currentIteration += 1/3; 
                 
                 return nextText;
@@ -82,7 +68,7 @@ const DecryptedText = ({
     >
         <span className={`${className} relative z-10`}>{displayText}</span>
         
-        {/* Background Glitch Effect */}
+        {/* Background Glitch */}
         {isScrambling && (
             <motion.span 
                 className={`absolute top-0 left-0 w-full h-full bg-current opacity-10 z-0 ${className}`}
@@ -92,13 +78,13 @@ const DecryptedText = ({
             />
         )}
         
-        {/* Color Chromatic Aberration Simulation (Red/Cyan Offset) */}
+        {/* Color Aberration */}
         {isScrambling && (
             <>
-                <span className={`${className} absolute top-0 left-[-2px] text-red-500 opacity-50 mix-blend-screen overflow-hidden h-full z-0 clip-path-random`}>
+                <span className={`${className} absolute top-0 -left-0.5 text-red-500 opacity-50 mix-blend-screen overflow-hidden h-full z-0 clip-path-random`}>
                     {displayText}
                 </span>
-                <span className={`${className} absolute top-0 left-[2px] text-cyan-500 opacity-50 mix-blend-screen overflow-hidden h-full z-0 clip-path-random-2`}>
+                <span className={`${className} absolute top-0 left-0.5 text-cyan-500 opacity-50 mix-blend-screen overflow-hidden h-full z-0 clip-path-random-2`}>
                      {displayText}
                 </span>
             </>

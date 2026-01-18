@@ -6,7 +6,6 @@ import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
 
-// Global set to track animated texts across component remounts
 const animatedTexts = new Set();
 
 const SplitText = ({
@@ -44,8 +43,6 @@ const SplitText = ({
       if (!ref.current || !text || !fontsLoaded) return;
       const el = ref.current;
 
-      // Unique key for this text instance to prevent re-animation
-      // We use the text content string as part of the key to identify it
       const animationKey = `${uniqueId.current}-${text.substring(0, 10)}`;
 
       let scrollerTarget = container || document.getElementById('snap-main-container') || null;
@@ -53,11 +50,11 @@ const SplitText = ({
           scrollerTarget = document.querySelector(scrollerTarget);
       }
 
-      // Clean up old instance
       if (el._rbsplitInstance) {
         try {
           el._rbsplitInstance.revert();
-        } catch (_) { /* ignore */ }
+        } 
+        catch { }
         el._rbsplitInstance = null;
       }
 
@@ -77,11 +74,9 @@ const SplitText = ({
       if (!targets && splitType.includes('lines') && splitInstance.lines.length) targets = splitInstance.lines;
       if (!targets) targets = splitInstance.chars || splitInstance.words || splitInstance.lines;
 
-      // Check global state
       if (animatedTexts.has(animationKey)) {
           gsap.set(targets, { ...to });
       } else {
-          // Setup animation
           const startPct = (1 - threshold) * 100;
           
           gsap.set(targets, { ...from });
@@ -109,16 +104,10 @@ const SplitText = ({
       el._rbsplitInstance = splitInstance;
 
       return () => {
-        // Kill ScrollTriggers specific to this element
         ScrollTrigger.getAll().forEach(st => {
            if (st.trigger === el) st.kill();
         });
-        
-        // We do NOT revert the split text instance itself on unmount/cleanup efficiently
-        // because that causes a flash of unstyled text if it remounts quickly.
-        // However, GSAP Context handles basic cleanup.
-        // If we revert, the text goes back to block.
-        // Let's rely on the next mount re-splitting it.
+
         try {
           if (el._rbsplitInstance) el._rbsplitInstance.revert();
         } catch (_) { }

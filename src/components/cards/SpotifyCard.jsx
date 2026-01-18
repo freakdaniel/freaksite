@@ -2,7 +2,7 @@ import { SiSpotify } from '@icons-pack/react-simple-icons';
 
 const SpotifyCard = ({ isPlaying = true, track = "KICKING CARS", artist = "Panchiko", coverUrl }) => {
     return (
-        <div className="w-full h-full bg-white/5 p-6 border border-white/10 rounded-2xl p-2 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden group transition-all hover:bg-white/10">
+        <div className="w-full h-full bg-white/5 p-6 border border-white/10 rounded-2xl flex flex-col md:flex-row items-center gap-6 relative overflow-hidden group transition-all hover:bg-white/10">
             
             {/* Background Blur Effect */}
             <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-[#1DB954]/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />

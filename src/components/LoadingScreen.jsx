@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import BlurText from './text/BlurText';
+import DecryptedText from './text/DecryptedText';
 import '../index.css';
 import AnimatedContent from './animations/AnimatedContent';
 import { useSpring, animated } from '@react-spring/web';
@@ -22,8 +22,8 @@ const LoadingScreen = ({ logoStr, children }) => {
   const logoText = logoStr;
   const logoTextAnimDuration = logoText.length * 100;
   const logoAppearDuration = logoTextAnimDuration / 1000;
-  const logoVisibleDuration = logoAppearDuration * 3;
-  const logoDisappearDuration = logoAppearDuration;
+  const logoVisibleDuration = 2.5;
+  const logoDisappearDuration = 0.5;
 
   useEffect(() => {
     const loadImages = async () => {
@@ -77,15 +77,18 @@ const LoadingScreen = ({ logoStr, children }) => {
           disappearDuration={logoDisappearDuration}
           onDisappearanceComplete={handleLogoDisappearanceComplete}
         >
-          <BlurText
-            text={logoText}
-            intensity={1.5}
-            color="#ffffff"
-            className="text-5xl font-bold tracking-wider font-sync text-neutral-50 max-sm:text-3xl"
-            animateBy="letters"
-            direction="top"
-            delay={100}
-          />
+          <div className="flex flex-col items-center justify-center">
+            <DecryptedText
+              text={logoText}
+              speed={75}
+              maxIterations={30}
+              className="text-5xl font-bold tracking-wider font-sync text-neutral-50 max-sm:text-3xl"
+              parentClassName="flex items-center justify-center"
+              sequential={true}
+              revealDirection="center"
+              characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*"
+            />
+          </div>
         </AnimatedContent>
       )}
 

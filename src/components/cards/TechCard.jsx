@@ -1,26 +1,28 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-const TechCard = ({ name, description, icon: Icon, color = "text-white", gradient = "from-white/10" }) => {
+const TechCard = ({ name, description, icon: Icon, hexColor = "#ffffff", className = "" }) => {
   return (
-    <motion.div
-      whileHover={{ scale: 1.03 }}
-      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-      className="relative overflow-hidden bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col justify-between h-full group cursor-default"
+    <div 
+      className={`relative overflow-hidden bg-white/5 border border-white/10 rounded-xl p-3 h-full group cursor-default transition-all duration-700 ${className}`}
+      style={{ '--active-color': hexColor }}
     >
-      <div className={`absolute inset-0 bg-linear-to-br ${gradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+      <div 
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 in-[.forced-active]:opacity-100"
+        style={{ background: `linear-gradient(to bottom right, ${hexColor}33, transparent)` }}
+      />
 
-      <div className="relative z-10">
-        <div className={`p-3 rounded-full bg-white/10 w-fit mb-3 ${color}`}>
+      <div className="relative z-10 flex items-center gap-3">
+        <div 
+          className="transition-colors duration-700 text-white/40 group-hover:text-(--active-color) in-[.forced-active]:text-(--active-color)"
+        >
           <Icon size={24} />
         </div>
-        <h3 className="text-white font-bold text-lg font-sync max-sm:text-sm">{name}</h3>
-        <p className="text-white/50 text-xs mt-1">{description}</p>
+        <div className="flex-1">
+          <h3 className="text-white font-bold text-sm font-sync leading-tight">{name}</h3>
+          <p className="text-white/50 text-[10px] mt-0.5 leading-tight">{description}</p>
+        </div>
       </div>
-
-      <div className="absolute -bottom-6 -right-6 text-white/5 group-hover:text-white/10 transform translate-y-4 translate-x-4 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-500 ease-out">
-        <Icon size={120} />
-      </div>
-    </motion.div>
+    </div>
   );
 };
 

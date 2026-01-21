@@ -121,8 +121,8 @@ export default function Home() {
     return (
         <>
             <Scene scrollContainerRef={scrollRef} accentColor={accentColor} />
-            <div ref={scrollRef} className='h-screen scroll-smooth snap-y snap-mandatory overflow-x-hidden bg-transparent relative z-10' id="snap-main-container" style={{ overflowY: 'scroll' }}>
-                <section className="w-screen h-screen bg-transparent relative snap-center overflow-hidden flex flex-col justify-center">
+            <div ref={scrollRef} className='h-screen snap-y snap-mandatory overflow-x-hidden bg-transparent relative z-10' id="snap-main-container" style={{ overflowY: 'scroll' }}>
+                <section className="w-screen h-screen bg-transparent relative snap-center snap-always overflow-hidden flex flex-col justify-center">
 
                     <div className="relative z-10 w-full flex-1 flex flex-col justify-center">
                         <AnimatedContent
@@ -188,7 +188,7 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="min-h-screen w-screen bg-transparent relative snap-start">
+                <section className="min-h-screen w-screen bg-transparent relative snap-start snap-always">
 
                     <div className="relative z-10 w-full h-full flex flex-col items-center justify-start pt-40 max-sm:pt-28">
 
@@ -330,7 +330,7 @@ export default function Home() {
                 </section>
 
                 {/* Skills Section */}
-                <section className="min-h-screen w-screen bg-transparent relative snap-start">
+                <section className="min-h-screen w-screen bg-transparent relative snap-start snap-always">
                     <div className="relative z-10 w-full h-full flex flex-col items-center justify-start pt-40 max-sm:pt-28 pb-20">
 
                         {/* Visual Connection Line */}
@@ -422,7 +422,7 @@ export default function Home() {
                 </section>
 
                 {/* Projects Section */}
-                <section className="min-h-screen w-screen bg-transparent relative snap-start">
+                <section className="min-h-screen w-screen bg-transparent relative snap-start snap-always">
                     <div className="relative z-10 w-full h-full flex flex-col items-center justify-start pt-40 max-sm:pt-28 pb-20">
 
                         {/* Visual Connection Line */}
